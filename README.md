@@ -9,4 +9,7 @@ ARCHITECTUTE
    
    Search service
 
-   Media servicr
+   Media service
+
+The server uses caching for fast query searches and reduces latency by manifolds
+The messaging broker Rabbitmq is used for loose coupling and independency from different services
