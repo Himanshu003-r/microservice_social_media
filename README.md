@@ -13,3 +13,7 @@ ARCHITECTUTE
 
 The server uses caching for fast query searches and reduces latency by manifolds
 The messaging broker Rabbitmq is used for loose coupling and independency from different services
+
+The application have rate limiting feature which tracks the request hit per IP address and prvent DDOS and CSRF attacks
+
+With use of Redis the heavily requested data is stored in cache which enables fast retrival and querying thus reducing the data fetching time
