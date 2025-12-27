@@ -17,3 +17,6 @@ The messaging broker Rabbitmq is used for loose coupling and independency from d
 The application have rate limiting feature which tracks the request hit per IP address and prvent DDOS and CSRF attacks
 
 With use of Redis the heavily requested data is stored in cache which enables fast retrival and querying thus reducing the data fetching time
+
+With the authentication being done at Api gateway the need to do authentication is not needed which reduces the load on server
+
