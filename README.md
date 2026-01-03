@@ -20,3 +20,5 @@ With use of Redis the heavily requested data is stored in cache which enables fa
 
 With the authentication being done at Api gateway the need to do authentication is not needed which reduces the load on server
 
+The use of Rabbitmq enables the server to be divided into small services which helps to off load the services of different servers
+
