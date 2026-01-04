@@ -22,3 +22,14 @@ With the authentication being done at Api gateway the need to do authentication 
 
 The use of Rabbitmq enables the server to be divided into small services which helps to off load the services of different servers
 
+Architecture 
+
+API Gateway  ---  Entry point 
+
+Identity Service --- User authentication 
+
+Post Service --- Handling post events
+
+Search Service --- Querying the search
+
+Media Service --- Handling media server
