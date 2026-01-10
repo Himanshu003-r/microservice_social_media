@@ -33,3 +33,5 @@ Post Service --- Handling post events
 Search Service --- Querying the search
 
 Media Service --- Handling media server
+
+Message brokers and queues used to send the task in queue. A publish will initiate the queue to the exchange name and a subscribe will follow the queue through the same exchange 
