@@ -53,8 +53,11 @@ Each service has its own **MongoDB** database, ensuring loose coupling and indep
 Handles all user authentication and authorization.
 
   POST   `/v1/auth/register`          | Register a new user 
+  
   POST   `/v1/auth/login`             | Login and receive tokens 
+  
   POST   `/v1/auth/refreshToken`      | Refresh access token 
+  
   POST   `/v1/auth/logout`            | Logout and invalidate refresh token 
 
 **Features:**
