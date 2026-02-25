@@ -72,8 +72,11 @@ Manages creation, retrieval, and deletion of posts.
 
 
   POST     `/v1/posts/create-post`       | Create a new post 
+  
   GET      `/v1/posts/posts`             | Get all posts (paginated) 
+  
   GET      `/v1/posts/:id`               | Get a single post by ID 
+  
   DELETE   `/v1/posts/:id`               | Delete a post (owner only) 
 
 **Features:**
@@ -89,6 +92,7 @@ Handles file uploads and media management via Cloudinary.
 
 
   POST   `/v1/media/upload`             | Upload a file (max 5MB) 
+  
   GET    `/v1/media/getMedias`          | Get all uploaded media 
 
 **Features:**
@@ -127,14 +131,23 @@ The single entry point for all client requests.
 ## Tech Stack
 
   **Node.js + Express**       | Service runtime & HTTP framework 
+  
   **MongoDB + Mongoose**      | Per-service databases 
+  
   **Redis (ioredis)**         | Caching & rate limit store 
+  
   **RabbitMQ**                | Async event bus between services 
+  
   **Cloudinary**              | Media/image cloud storage 
+  
   **JWT**                     | Stateless authentication 
+  
   **Docker + Docker Compose** | Containerization & orchestration 
+  
   **Winston**                 | Structured logging 
+  
   **Joi**                     | Request validation 
+  
   **Multer**                  | Multipart file upload handling 
 
 ---
@@ -236,6 +249,7 @@ microservices-main/
 Services communicate asynchronously via **RabbitMQ** for decoupled workflows:
 
   `post.created`      | Post Service | Search Service | Index post for search |
+  
   `post.deleted`      | Post Service | Media Service | Delete associated media from Cloudinary |
 
 ---
