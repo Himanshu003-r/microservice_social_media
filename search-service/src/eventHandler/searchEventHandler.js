@@ -1,5 +1,5 @@
 import logger from "../utils/logger.js";
-import Search from "../models/Searchmodel.js";
+import Search from "../models/SearchModel.js";
 export async function handlePostCreated(event){
     try {
         const newSearchPost = new Search({
