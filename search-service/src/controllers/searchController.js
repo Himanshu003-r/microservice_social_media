@@ -1,4 +1,4 @@
-import Search from "../models/Searchmodel.js";
+import Search from "../models/SearchModel.js";
 import logger from "../utils/logger.js";
 
 export const searchPost = async (req, res) => {
