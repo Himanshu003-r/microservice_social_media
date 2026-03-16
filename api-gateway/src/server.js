@@ -12,6 +12,7 @@ import validateToken from "./middlewares/authMiddleware.js";
 dotenv.config();
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3000;
 
 const redisClient = new Redis(process.env.REDIS_URL);
@@ -119,7 +120,7 @@ app.use('/v1/media',validateToken,proxy(process.env.MEDIA_SERVICE_URL,{
   ...proxyOptions,
   proxyReqOptDecorator: (proxyReqOpts, srcReq) =>{
     proxyReqOpts.headers["x-user-id"] = srcReq.user.userId;
-    if(!srcReq.headers['content-type'].startsWith('multipart/form-data')){
+    if(!(srcReq.headers['content-type'] || '').startsWith('multipart/form-data')){
       proxyReqOpts.headers["Content-Type"] = "application/json";
     }
     return proxyReqOpts
