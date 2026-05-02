@@ -53,7 +53,7 @@ app.use((req,res,next)=> {
 //IP based rate limiting for sensitive endpoints
 const sensitiveEndpoints = rateLimit({
     windowMs : 15 * 60 * 1000, // 15mins
-    max : 50,
+    max : 5,
     standardHeaders: true, // allowing headers in response
     legacyHeaders: false,
     handler: (req ,res) => {
