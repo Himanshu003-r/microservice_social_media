@@ -46,7 +46,50 @@ app.use((req, res, next) => {
   next();
 });
 
-// identity : /api/auth/register
+// health check for services
+app.get("/", async (req, res) => {
+
+  // Check Redis
+  let redisStatus = "connected"
+  try {
+    await redisClient.ping()
+  } catch {
+    redisStatus = "disconnected"
+  }
+
+  // Ping Identity Service
+  let identityServiceStatus = "connected"
+  let dbStatus = "unknown"
+  try {
+    const response = await fetch(
+      `${process.env.IDENTITY_SERVICE_URL}/health`,
+      { signal: AbortSignal.timeout(3000) }
+    )
+    const data = await response.json()
+    identityServiceStatus = response.ok ? "connected" : "disconnected"
+    dbStatus = data.database // pulls DB status from identity-service
+  } catch {
+    identityServiceStatus = "disconnected"
+    dbStatus = "unreachable"
+  }
+
+  const allHealthy =
+    redisStatus === "connected" &&
+    identityServiceStatus === "connected"
+
+  res.status(allHealthy ? 200 : 503).json({
+    success: allHealthy,
+    message: allHealthy ? "All systems operational" : "Degraded",
+    uptime: `${Math.floor(process.uptime())} seconds`,
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV,
+    services: {
+      redis: redisStatus,
+      identityService: identityServiceStatus,
+      database: dbStatus
+    }
+  })
+})
 
 const proxyOptions = {
   proxyReqPathResolver: (req) => {
