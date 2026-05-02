@@ -10,6 +10,7 @@ import {RedisStore} from "rate-limit-redis"
 import Redis from "ioredis"
 import authRoute from "./routes/identityRoute.js"
 import errorHandler from "./middlewares/errorHandler.js"
+import mongoose from "mongoose"
 dotenv.config()
 
 const app = express()
@@ -74,6 +75,26 @@ app.use('/api/auth/register',sensitiveEndpoints)
 
 // Routes
 app.use('/api/auth', authRoute)
+
+// Health check for DB 
+app.get("/health", async (req, res) => {
+  
+  let dbStatus = "connected"
+  try {
+    if (mongoose.connection.readyState !== 1) {
+      dbStatus = "disconnected"
+    }
+  } catch {
+    dbStatus = "disconnected"
+  }
+
+  const allHealthy = dbStatus === "connected"
+
+  res.status(allHealthy ? 200 : 503).json({
+    service: "identity-service",
+    database: dbStatus
+  })
+})
 
 // Error handler
 app.use(errorHandler)
